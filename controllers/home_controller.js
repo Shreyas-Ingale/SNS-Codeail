@@ -1,4 +1,6 @@
 //export a home controller for respose to a request in Router
 module.exports.home = function(req, res){
-    return res.end('<h1>Express is Running for Codeial !</h1>');
+    return res.render('home', {
+        title: "Home"
+    });
 }
