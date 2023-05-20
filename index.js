@@ -3,7 +3,10 @@ const app = express();  // start express
 const port = 8000; // default port for express server
 const expressLayouts = require('express-ejs-layouts'); // import express ejs layout
 
-// using Express EJS Layouts to say that all views belong to this layout
+// using static for access styling and js files 
+app.use(express.static('./assets'));
+
+// using Express EJS Layouts to say that all views belong to this layout use before router
 app.use(expressLayouts);
 
 // using Express Router to handle all requests
