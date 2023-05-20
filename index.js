@@ -2,7 +2,7 @@ const express = require('express'); // import express
 const app = express();  // start express
 const port = 8000; // default port for express server
 const expressLayouts = require('express-ejs-layouts'); // import express ejs layout
-
+const db = require('./config/mongoose');
 // using static for access styling and js files 
 app.use(express.static('./assets'));
 // extratc styles and scripts from sub pages into the layout
