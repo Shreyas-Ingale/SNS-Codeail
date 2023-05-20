@@ -5,6 +5,9 @@ const expressLayouts = require('express-ejs-layouts'); // import express ejs lay
 
 // using static for access styling and js files 
 app.use(express.static('./assets'));
+// extratc styles and scripts from sub pages into the layout
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 // using Express EJS Layouts to say that all views belong to this layout use before router
 app.use(expressLayouts);
