@@ -2,3 +2,7 @@ body{
     background-color: cornflowerblue;
     color: white;
 }
+
+form{
+    margin: 10vh;
+}

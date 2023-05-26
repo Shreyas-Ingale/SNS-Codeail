@@ -1,8 +1,15 @@
 const express = require('express'); // import express
+const cookieParser = require('cookie-parser'); // import cookie parser for accessingg cookies
 const app = express();  // start express
 const port = 8000; // default port for express server
 const expressLayouts = require('express-ejs-layouts'); // import express ejs layout
 const db = require('./config/mongoose');
+const bodyParser = require('body-parser'); // import readymade middleware
+
+// readymade middleware to convert browser form strings to javascript objects
+app.use(bodyParser.urlencoded({ extended: true }));
+// 
+app.use(cookieParser());
 // using static for access styling and js files 
 app.use(express.static('./assets'));
 // extratc styles and scripts from sub pages into the layout

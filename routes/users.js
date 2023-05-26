@@ -7,4 +7,11 @@ router.get('/profile', usersController.profile);
 // handle actions of get on /users/posts
 router.get('/posts', usersController.posts);
 
+// handle actions of get on /sign-up
+router.get('/sign-up', usersController.signUp)
+// handle actions of get on /sign-in
+router.get('/sign-in', usersController.signIn)
+
+router.post('/sign-up/create', usersController.create)
+
 module.exports = router;
