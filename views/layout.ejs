@@ -9,6 +9,8 @@
         <%= title %>
     </title>
     <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <%- style %>
 </head>
 
@@ -17,7 +19,9 @@
     <%- include('_header'); %>
 
         <!-- implemented layout except the 17th line everything is common part of layout but 17th is variable -->
-        <%- body %>
+        <main id="layout-main">
+            <%- body %>
+        </main>
 
     <%- include('_footer'); %>
 

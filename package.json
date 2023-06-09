@@ -4,8 +4,10 @@
   "description": "My Soical Networking Web Application",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass-it": "sass --watch --no-source-map assets/scss:assets/css",
+    "codeial": "npm-run-all --parallel sass-it start"
   },
   "keywords": [
     "social",
@@ -21,8 +23,12 @@
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
-    "mongoose": "^7.2.0",
+    "mongoose": "^7.2.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.63.2"
   }
 }

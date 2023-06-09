@@ -9,6 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo'); // import connect mongo to store cookie in it also pass the crnt session arguement
+const sass = require('sass'); // import sass for using it on top of a css file
 const bodyParser = require('body-parser'); // import readymade middleware
 
 // readymade middleware to convert browser form strings to javascript objects

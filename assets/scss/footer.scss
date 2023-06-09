@@ -1,0 +1,47 @@
+#things{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: rgb(86, 86, 86);
+    color: whitesmoke;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    #copyrights{
+
+        border-right: 1px solid whitesmoke;
+        padding-right: 10px;
+        margin-right: 10px;
+
+        p{
+            font-size: 1rem;
+        }
+    }
+
+    #nav{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        a{  
+            color: whitesmoke;
+            text-decoration: none;
+            outline: none;
+
+            &:first-child{
+                padding-bottom: 1px;
+            }
+
+            &:last-child{
+                padding-top: 1px;
+            }
+            
+            &:hover{
+                color: rgba(255, 255, 255, 0.751);
+            }
+        }
+    }
+}
