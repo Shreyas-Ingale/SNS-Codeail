@@ -45,7 +45,7 @@ app.use(session({
     }, function(error){
         console.log(error || 'connect-mongo Set Up OK');
     })
-}))
+}));
 
 // start passport and its session functionality
 app.use(passport.initialize());
@@ -62,4 +62,4 @@ app.listen(port, function(err){
     }
 
     console.log(`Server is running on Port : ${port}`);
-})
+});
