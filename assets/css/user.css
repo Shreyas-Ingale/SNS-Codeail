@@ -20,7 +20,7 @@ body .form form {
 }
 body .form form input:not(:last-child) {
   font-size: 1rem;
-  background-color: inherit;
+  background-color: lightgray;
   border: none;
   outline: none;
   border-bottom: 1px solid rgb(0, 0, 0);
@@ -29,8 +29,8 @@ body .form form input:not(:last-child) {
 body .form form input:not(:last-child)::placeholder {
   color: rgba(0, 0, 0, 0.445);
 }
-body .form form input:not(:last-child):focus, body .form form input:not(:last-child):focus-within {
-  background-color: initial;
+body .form form input:not(:last-child):focus, body .form form input:not(:last-child):focus-within, body .form form input:not(:last-child):focus-visible {
+  background-color: lightgray;
 }
 body .form form input:last-child {
   background-color: #155cdf;

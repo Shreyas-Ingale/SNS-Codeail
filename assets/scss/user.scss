@@ -22,7 +22,7 @@ body{
 
             input:not(:last-child){
                 font-size: 1rem;
-                background-color: inherit;
+                background-color: lightgray;
                 border: none;
                 outline: none;
                 border-bottom: 1px solid rgb(0, 0, 0);
@@ -32,8 +32,8 @@ body{
                     color: rgba(0, 0, 0, 0.445);
                 }
 
-                &:focus, &:focus-within{
-                    background-color: initial;
+                &:focus, &:focus-within, &:focus-visible{
+                    background-color: lightgray;
                 }
             }
 
