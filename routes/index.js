@@ -10,6 +10,8 @@ console.log('Router Loaded Successfully');
 router.get('/', homeController.home);
 // tell main router to forward all route traffic for /users/ to users.js router
 router.use('/users', require('./users'));
+// tell main router to forward all route traffic for /posts/ to posts.js router
+router.use('/posts', require('./posts'));
 
 // export this router
 module.exports = router;
