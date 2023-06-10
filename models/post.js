@@ -9,11 +9,13 @@ const postScehma = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...
         ref: "User"
     },//include array of ids of all comments on this post in the schema itself
-    comments: {
-        type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...
-        ref: "Comment"
-    }
-},{ // gives times at which account(upper fields for a specific user) was created and then whenever it updates
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...
+            ref: "Comment"
+        }
+    ]
+}, { // gives times at which account(upper fields for a specific user) was created and then whenever it updates
     timestamp: true
 });
 // setting up this as a model/collection with name Post

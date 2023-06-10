@@ -12,6 +12,8 @@ router.get('/', homeController.home);
 router.use('/users', require('./users'));
 // tell main router to forward all route traffic for /posts/ to posts.js router
 router.use('/posts', require('./posts'));
+// tell main router to forward all route traffic for /comments/ to comments.js router
+router.use('/comments', require('./comments'));
 
 // export this router
 module.exports = router;

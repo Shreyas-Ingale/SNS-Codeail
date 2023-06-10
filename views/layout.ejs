@@ -9,7 +9,7 @@
         <%= title %>
     </title>
     <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/head.css">
+    <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <%- style %>
@@ -19,10 +19,10 @@
     <!-- implemented partials for header and footer -->
     <%- include('_header'); %>
 
-        <!-- implemented layout except the 17th line everything is common part of layout but 17th is variable -->
-        <main id="layout-main">
-            <%- body %>
-        </main>
+    <!-- implemented layout except the 17th line everything is common part of layout but 17th is variable -->
+    <main id="layout-main">
+        <%- body %>
+    </main>
 
     <%- include('_footer'); %>
 

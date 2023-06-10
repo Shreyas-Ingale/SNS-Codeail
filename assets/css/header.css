@@ -1,19 +1,22 @@
 #nav-bar {
-  max-height: 8vh;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #155cdf;
   color: white;
-  padding: 0 10px;
+  width: 100%;
 }
-#nav-bar #nav-title p {
+#nav-bar p {
+  margin-left: 10px;
   font-size: 1.4rem;
   font-weight: bolder;
 }
 #nav-bar ul {
-  display: flex;
+  margin-right: 10px;
+  display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   list-style: none;
 }
 #nav-bar ul li {
