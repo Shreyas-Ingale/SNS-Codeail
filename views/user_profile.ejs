@@ -1,9 +1,20 @@
-<!-- deleted everything else except this line since that content will be filld by layout -->
-<link rel="stylesheet" href="/css/user.css">
-    <a href="/">
-        <h1>Codeial : User - <%= title %></h1>
-    </a>
 
-    <p><%= user.name %></p>
-    <p><%= user.email %></p>
+<link rel="stylesheet" href="/css/user.css">
+    
+<h1>Codeial : <%= profile_user.name %></h1>
+
+<!-- if the current user macthes the profile_user then show this update form -->
+<% if(user.id == profile_user.id) {%>
+    <form action="/users/update/<%= profile_user.id %>" method="post">
+        <input type="text" name="name" placeholder="New Name" value="<%= profile_user.name %>" required>
+        <input type="email" name="email" placeholder="New Email" value="<%= profile_user.email %>" required>
+        <input type="submit" value="Update">
+    </form>
+<!-- or else show this basic info -->
+<% } else { %>
+    <p><%= profile_user.name %></p>
+    <p><%= profile_user.email %></p>
+<% } %>
+
+
     

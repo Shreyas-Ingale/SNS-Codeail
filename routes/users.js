@@ -4,7 +4,9 @@ const passport = require('passport');
 // import a controller for handling actions on /users 
 const usersController = require('../controllers/users_controller');
 // handle actions of get on /users/profile with a custom middleware to check if user has signed-in
-router.get('/profile', passport.checkAuthentication, usersController.profile);
+router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
+// handle actions of get on /users/update with a custom middleware to check if user has signed-in
+router.post('/update/:id', passport.checkAuthentication, usersController.update);
 // handle actions of get on /users/posts
 router.get('/posts', usersController.posts);
 // handle actions of get on /sign-up

@@ -16,7 +16,7 @@ const postScehma = new mongoose.Schema({
         }
     ]
 }, { // gives times at which account(upper fields for a specific user) was created and then whenever it updates
-    timestamp: true
+    timestamps: true
 });
 // setting up this as a model/collection with name Post
 const Post = mongoose.model('Post', postScehma);

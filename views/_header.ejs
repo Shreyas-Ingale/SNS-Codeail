@@ -1,13 +1,14 @@
 <!-- header Partial -->
+<link rel="stylesheet" href="/css/header.css">
 
 <header id="nav-bar">
-    
-        <p>Codeial</p>
+
+        <p><a href="/">Codeial</a></p>
     
         <ul>
             <% if(locals.user) { %>
                 <li>
-                    <a href="/users/profile">
+                    <a href="/users/profile/<%= user.id %>">
                         <%= user.name %>
                     </a>
                 </li>

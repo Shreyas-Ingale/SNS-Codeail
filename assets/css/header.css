@@ -12,6 +12,14 @@
   font-size: 1.4rem;
   font-weight: bolder;
 }
+#nav-bar a {
+  color: white;
+  text-decoration: none;
+  outline: none;
+}
+#nav-bar a:hover {
+  color: rgba(255, 255, 255, 0.751);
+}
 #nav-bar ul {
   margin-right: 10px;
   display: inline-flex;
@@ -27,12 +35,4 @@
 }
 #nav-bar ul li:last-child {
   border-left: 1px solid white;
-}
-#nav-bar ul a {
-  color: white;
-  text-decoration: none;
-  outline: none;
-}
-#nav-bar ul a:hover {
-  color: rgba(255, 255, 255, 0.751);
 }

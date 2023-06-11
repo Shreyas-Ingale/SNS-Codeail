@@ -1,6 +1,7 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
-//export a home controller for respose to a request in Router
+//export a home controller for respose to a request in Router & to render the homepage
 module.exports.home = function(req, res){
     // res.cookie('crocodile_id', 20);
     console.log(req.cookies);
@@ -15,7 +16,8 @@ module.exports.home = function(req, res){
     //     console.log("Error while finding Posts", error);
     // });
 
-    // populate the user of each post
+    // render the posts - populate the user of each post and a comments user to display names
+    // and send all the users to make them visible as friends
     Post.find({})
     .populate('user')
     .populate({
@@ -25,9 +27,15 @@ module.exports.home = function(req, res){
         }
     })
     .exec().then(function(posts){
-        return res.render('home', {
-            title: "Home",
-            posts: posts
+        // console.log("here : ",req.user);
+        User.find({}).then(function(users){
+            return res.render('home', {
+                title: "Home",
+                posts: posts,
+                all_users: users,
+            });
+        }).catch(function(error){
+            console.log("Error while finding the Users", error);
         });
     }).catch(function(error){
         console.log("Error while finding Posts", error);

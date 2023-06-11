@@ -1,4 +1,5 @@
 <!-- footer Partial -->
+<link rel="stylesheet" href="/css/footer.css">
 
 <footer id="things">
     <div id="copyrights">
@@ -6,6 +7,10 @@
     </div>
     <div id="nav">
         <a href="/">Home</a>
-        <a href="/users/profile">Profile</a>
+        <% if(locals.user) { %>
+            <a href="/users/profile/<%= user.id %>">Profile</a>
+        <% } else { %>
+            <a href="/users/sign-in">Profile</a>
+        <% } %>
     </div>
 </footer>
