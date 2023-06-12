@@ -91,3 +91,5 @@ module.exports.destroySession = function (req, res) {
         return res.redirect('/');
     });
 }
+
+// not using async await scine only onr call is being made per function !!
