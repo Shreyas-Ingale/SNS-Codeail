@@ -8,10 +8,12 @@ module.exports.create = async function (req, res) {
             content: req.body.content,
             user: req.user._id
         });
+        req.flash('success', 'Post Published!');
         return res.redirect('back'); // upon success redirect back
     } catch (error) {
-        console.log("Error in Creating the Post", error);
-        return;
+        req.flash('error', "Error in Posting the Comment in DB",);
+        console.log(error);
+        return res.redirect('back');
     }
 }
 
@@ -23,14 +25,17 @@ module.exports.destroy = async function (req, res) {
         if (post.user == req.user.id) { //check if current user is the one who has created this post
             post.deleteOne();
             await Comment.deleteMany({ post: req.params.id });
+            req.flash('success', "Post and it's comments deleted!");
             return res.redirect('back'); // delete all the comments on the post and redirect back
         }
         else {
+            req.flash('error', "Unauthorized Activity: Not allowed to delete the post");
             return res.redirect('back'); // upon failure redirect back w/o doing anything
         }
 
     } catch (error) {
-        console.log("Error in Removing the Post", error);
-        return;
+        req.flash('error', "Error in Deleteing the Comment in DB",);
+        console.log(error);
+        return res.redirect('back');
     }
 }

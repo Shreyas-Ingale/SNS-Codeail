@@ -10,6 +10,8 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo'); // import connect mongo to store cookie in it also pass the crnt session arguement
 const sass = require('sass'); // import sass for using it on top of a css file
+const flash = require('connect-flash'); // import connect-flash for flash messages
+const customMiddleware = require('./config/middleware'); //import custom middleware
 const bodyParser = require('body-parser'); // import readymade middleware
 
 // readymade middleware to convert browser form strings to javascript objects
@@ -51,6 +53,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+// start connect-flash to store flash messages in session cookies hence used here 
+// and call custom middlware to pass it to ejs to show it on browser
+app.use(flash());
+app.use(customMiddleware.setFlash);
 
 // using Express Router to handle all requests
 app.use('/', require('./routes'));

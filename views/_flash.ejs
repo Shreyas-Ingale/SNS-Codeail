@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+
+<script src="https://unpkg.com/notie"></script>
+    <% if(flash.success && flash.success.length > 0) { %>
+        <script>
+                notie.alert({
+                    type: "success", // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                    text: "<%= flash.success %>",
+                    stay: false, // optional, default = false
+                    time: 2, // optional, default = 3, minimum = 1,
+                    position: "top" // optional, default = 'top', enum: ['top', 'bottom']
+                });
+        </script>    
+    <% } %>
+    <% if(flash.error && flash.error.length > 0) { %>
+        <script>
+                notie.alert({
+                    type: "error", // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                    text: "<%= flash.error %>",
+                    stay: false, // optional, default = false
+                    time: 2, // optional, default = 3, minimum = 1,
+                    position: "top" // optional, default = 'top', enum: ['top', 'bottom']
+                });
+        </script>    
+    <% } %>

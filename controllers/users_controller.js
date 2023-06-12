@@ -8,8 +8,9 @@ module.exports.profile = function (req, res) {
             profile_user: user
         });
     }).catch(function (error) {
-        console.log("Error in finding the User in DB", error);
-        return;
+        req.flash('error', "Error in Finding the User in DB",);
+        console.log(error);
+        return res.redirect('back');
     });
 }
 
@@ -17,10 +18,12 @@ module.exports.profile = function (req, res) {
 module.exports.update = function (req, res) {
     if (req.user.id == req.params.id) {
         User.findByIdAndUpdate(req.params.id, req.body).then(function (user) {
+            req.flash('success', "User Details Updated!");
             return res.redirect('back'); //successful redirect back
         }).catch(function (error) {
-            console.log("Error in finding the User in DB", error);
-            return;
+            req.flash('error', "Error in Finding the User in DB",);
+            console.log(error);
+            return res.redirect('back');
         });
     } else {
         return res.status(401).send('Unauthorized'); //unsuccessful send error 401
@@ -58,29 +61,34 @@ module.exports.signIn = function (req, res) {
 // get the sign up data and create account
 module.exports.create = function (req, res) {
     if (req.body.password != req.body.confirm_password) {
+        req.flash('error', "Passwords do not match!");
         return res.redirect('back');
     }
 
     User.findOne({ email: req.body.email }).then(function (user) {
         if (!user) {
             User.create(req.body).then(function (user) {
+                req.flash('success', "Account Created Successfully!");
                 return res.redirect('/users/sign-in');
             }).catch(function (error) {
-                console.log("Error in storing the User in DB", error);
-                return;
+                req.flash('error', "Error in storing the User in DB",);
+                console.log(error);
+                return res.redirect('back');
             });
         }
         else {
             return res.redirect('back');
         }
     }).catch(function (error) {
-        console.log("Error in finding the User in DB", error);
-        return;
+        req.flash('error', "Error in Finding the User in DB",);
+        console.log(error);
+        return res.redirect('back');
     });
 }
 
 // get the sign in data and create a session for the user and redirect to profile page
 module.exports.createSession = function (req, res) {
+    req.flash('success', 'Logged in Successfully !!'); // flash message
     return res.redirect('/users/profile/' + req.user.id);
 }
 
@@ -88,6 +96,7 @@ module.exports.createSession = function (req, res) {
 module.exports.destroySession = function (req, res) {
     req.logout(function (err) { // function from passport to logout the session/user
         if (err) { return next(err); }
+        req.flash('success', 'Logged Out Successfully !!'); // flash message
         return res.redirect('/');
     });
 }

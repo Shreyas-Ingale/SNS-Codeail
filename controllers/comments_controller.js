@@ -13,11 +13,13 @@ module.exports.create = async function (req, res) {
             });
             post.comments.push(comment); //comment
             post.save();
+            req.flash('success', 'Comment Posted!');
             res.redirect('back')
         }
     } catch (error) {
-        console.log("Error in Posting the Comment", error);
-        return;
+        req.flash('error', "Error in Completing the Task in DB",);
+        console.log(error);
+        return res.redirect('back');
     };
 }
 
@@ -31,13 +33,16 @@ module.exports.destroy = async function (req, res) {
             let postID = comment.post;
             comment.deleteOne(); // delete the comment
             let post = await Post.findByIdAndUpdate(postID, { $pull: { comments: req.params.id } });
+            req.flash('success', "Comment deleted!");
             return res.redirect('back'); // delete the comment from post's document and redirect back
         }
         else {
+            req.flash('error', "Unauthorized Activity: Not allowed to delete the comment");
             return res.redirect('back'); // upon failure redirect back w/o doing anything
         }
     } catch (error) {
-        console.log("Error in Removing the Comment", error);
-        return;
+        req.flash('error', "Error in Finding the Content in DB",);
+        console.log(error);
+        return res.redirect('back');
     };
 }
