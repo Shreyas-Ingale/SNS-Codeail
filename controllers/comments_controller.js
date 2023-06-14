@@ -13,6 +13,17 @@ module.exports.create = async function (req, res) {
             });
             post.comments.push(comment); //comment
             post.save();
+            // on ajax req send the data to views on client side if no error
+            if (req.xhr) {
+                // if we want to populate just the name of the user (we'll not want to send the password in the API), this is how we do it!
+                comment = await comment.populate('user', 'name');
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Comment Posted!"
+                });
+            }
             req.flash('success', 'Comment Posted!');
             res.redirect('back')
         }
@@ -27,13 +38,22 @@ module.exports.create = async function (req, res) {
 // only if the current user is comment's creator
 module.exports.destroy = async function (req, res) {
     try {
-        let comment = await Comment.findById(req.params.id).populate('post');
+        let comment = await Comment.findById(req.params.id).populate('post', 'id');
         //check if current user is the one who has created this comment or the creator of the post
         if (comment.user == req.user.id || req.user.id == comment.post.user) {
             let postID = comment.post;
             comment.deleteOne(); // delete the comment
             let post = await Post.findByIdAndUpdate(postID, { $pull: { comments: req.params.id } });
-            req.flash('success', "Comment deleted!");
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Comment Removed !"
+                });
+            }
+            req.flash('success', "Comment Removed!");
             return res.redirect('back'); // delete the comment from post's document and redirect back
         }
         else {

@@ -8,6 +8,7 @@ module.exports.home = async function (req, res) {
     // and send all the users to make them visible as friends
     try {
         let posts = await Post.find({})
+            .sort('-createdAt')
             .populate('user')
             .populate({
                 path: 'comments',

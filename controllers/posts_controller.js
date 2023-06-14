@@ -4,10 +4,21 @@ const Comment = require('../models/comment');
 // get the Data of the Post and Store it in postSchema
 module.exports.create = async function (req, res) {
     try {
-        await Post.create({
+        let post = await Post.create({
             content: req.body.content,
             user: req.user._id
         });
+        // on ajax req send the data to views on client side if no error
+        if(req.xhr){
+            // if we want to populate just the name of the user (we'll not want to send the password in the API), this is how we do it!
+            post = await post.populate('user', 'name');
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "Post Created !" //with this message
+            });
+        }
         req.flash('success', 'Post Published!');
         return res.redirect('back'); // upon success redirect back
     } catch (error) {
@@ -25,6 +36,14 @@ module.exports.destroy = async function (req, res) {
         if (post.user == req.user.id) { //check if current user is the one who has created this post
             post.deleteOne();
             await Comment.deleteMany({ post: req.params.id });
+            if(req.xhr){
+                return res.status(200).json({
+                    data: {
+                        post_id: req.params.id
+                    },
+                    message: "Post Deleted !"
+                });
+            }
             req.flash('success', "Post and it's comments deleted!");
             return res.redirect('back'); // delete all the comments on the post and redirect back
         }
