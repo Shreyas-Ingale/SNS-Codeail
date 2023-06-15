@@ -1,13 +1,16 @@
 
 <link rel="stylesheet" href="/css/user.css">
-    
+
+<img src="<%= user.avatar %>" alt="Profile Picture" width="100">
+
 <h1>Codeial : <%= profile_user.name %></h1>
 
 <!-- if the current user macthes the profile_user then show this update form -->
 <% if(user.id == profile_user.id) {%>
-    <form action="/users/update/<%= profile_user.id %>" method="post">
+    <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="post">
         <input type="text" name="name" placeholder="New Name" value="<%= profile_user.name %>" required>
         <input type="email" name="email" placeholder="New Email" value="<%= profile_user.email %>" required>
+        <input type="file" name="avatar" placeholder="Profile Picture">
         <input type="submit" value="Update">
     </form>
 <!-- or else show this basic info -->

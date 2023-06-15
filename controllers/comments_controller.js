@@ -28,7 +28,7 @@ module.exports.create = async function (req, res) {
             res.redirect('back')
         }
     } catch (error) {
-        req.flash('error', "Error in Completing the Task in DB",);
+        req.flash('error', "Error in Completing the Task in DB");
         console.log(error);
         return res.redirect('back');
     };
@@ -61,7 +61,7 @@ module.exports.destroy = async function (req, res) {
             return res.redirect('back'); // upon failure redirect back w/o doing anything
         }
     } catch (error) {
-        req.flash('error', "Error in Finding the Content in DB",);
+        req.flash('error', "Error in Finding the Content in DB");
         console.log(error);
         return res.redirect('back');
     };

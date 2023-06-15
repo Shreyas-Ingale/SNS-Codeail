@@ -16,10 +16,14 @@ const bodyParser = require('body-parser'); // import readymade middleware
 
 // readymade middleware to convert browser form strings to javascript objects
 app.use(bodyParser.urlencoded({ extended: true }));
-// 
+// middleware to assign secret to sign cookies
 app.use(cookieParser());
 // using static for access styling and js files 
 app.use(express.static('./assets'));
+
+//make the uploads path available to the browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 // extratc styles and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);

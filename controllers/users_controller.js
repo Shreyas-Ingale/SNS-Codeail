@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 //render the profile page of a user 
 module.exports.profile = function (req, res) {
@@ -8,24 +10,49 @@ module.exports.profile = function (req, res) {
             profile_user: user
         });
     }).catch(function (error) {
-        req.flash('error', "Error in Finding the User in DB",);
+        req.flash('error', "Error in Finding the User in DB");
         console.log(error);
         return res.redirect('back');
     });
 }
 
 // get the current user id and it machtes with the page's user id then update info else send 401
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
     if (req.user.id == req.params.id) {
-        User.findByIdAndUpdate(req.params.id, req.body).then(function (user) {
-            req.flash('success', "User Details Updated!");
-            return res.redirect('back'); //successful redirect back
-        }).catch(function (error) {
-            req.flash('error', "Error in Finding the User in DB",);
+        try{
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function(err){
+                if(err){console.log('****** Multer Error ****** : ',err);}
+                user.name = req.body.name;
+                user.email = req.body.email;
+                // if their is a file(pfp) in the form save it to the avatars dir
+                // and if one already exists replace it with new one
+                if(req.file){
+                    // if avatar exists for a user and the file as well delete it
+                    if(user.avatar){
+                        if(fs.existsSync(path.join(__dirname, '..', user.avatar))){
+                            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                        }
+                        // if only avatar value is set but file doesnt exists empty the avatar field
+                        else{
+                            user.avatar = "";
+                        }
+                    }
+
+                    //this saves the path of the uploaded file into avatar field in the User (schema)
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+                req.flash('success', "User Details Updated!");
+                return res.redirect('back'); //successful redirect back
+            });
+        }catch(error){
+            req.flash('error', "Error in Finding the User in DB");
             console.log(error);
             return res.redirect('back');
-        });
+        }
     } else {
+        req.flash('error', "UnAuthorized");
         return res.status(401).send('Unauthorized'); //unsuccessful send error 401
     }
 }
@@ -71,7 +98,7 @@ module.exports.create = function (req, res) {
                 req.flash('success', "Account Created Successfully!");
                 return res.redirect('/users/sign-in');
             }).catch(function (error) {
-                req.flash('error', "Error in storing the User in DB",);
+                req.flash('error', "Error in storing the User in DB");
                 console.log(error);
                 return res.redirect('back');
             });
@@ -80,7 +107,7 @@ module.exports.create = function (req, res) {
             return res.redirect('back');
         }
     }).catch(function (error) {
-        req.flash('error', "Error in Finding the User in DB",);
+        req.flash('error', "Error in Finding the User in DB");
         console.log(error);
         return res.redirect('back');
     });

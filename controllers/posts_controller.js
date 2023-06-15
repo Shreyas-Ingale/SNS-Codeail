@@ -22,7 +22,7 @@ module.exports.create = async function (req, res) {
         req.flash('success', 'Post Published!');
         return res.redirect('back'); // upon success redirect back
     } catch (error) {
-        req.flash('error', "Error in Posting the Comment in DB",);
+        req.flash('error', "Error in Posting the Comment in DB");
         console.log(error);
         return res.redirect('back');
     }
@@ -53,7 +53,7 @@ module.exports.destroy = async function (req, res) {
         }
 
     } catch (error) {
-        req.flash('error', "Error in Deleteing the Comment in DB",);
+        req.flash('error', "Error in Deleteing the Comment in DB");
         console.log(error);
         return res.redirect('back');
     }
