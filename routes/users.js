@@ -15,7 +15,7 @@ router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
 // handle actions of post on /sign-up through /sign-up/create
 router.post('/sign-up/create', usersController.create);
-// handle actions of post on /sign-ui through /sign-up/create-session
+// handle actions of post on /sign-in through /sign-in/create-session
 router.post('/sign-in/create-session', passport.authenticate(
     'local', // stratergy name
     {

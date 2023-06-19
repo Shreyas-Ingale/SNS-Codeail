@@ -11,15 +11,16 @@ passport.use(new LocalStrategy({
     usernameField: 'email', //telling that username will be email from our userScehma object   
     passReqToCallback: true // used to set req.flash vlaue
 }, function (req, email, password, done) { //find the user and establish identity after process done callback func will be called
-    User.findOne({ email: email }).then(function (user) { // email(schema) : email(user entered)
+    User.findOne({ email: email }).select('+password').then(function (user) { // email(schema) : email(user entered)
+        console.log("Here : ", user.password);
         if (!user || user.password != password) { // if user not found 
             req.flash('error', 'Invalid Username/Password !');
-            return done(null, false); //done(error, something else) here its null and false as in user not found
+            return done(null, false); //done(error, Boolean Value) here its null and false as in user not found
         }
-        return done(null, user); //done(error, something else) here its null and user which is found
+        return done(null, user); //done(error, Boolean Value) here its null and user which is found
     }).catch(function (err) {
         req.flash('error', 'Error in finding user ---> Passport')
-        return done(err); //done(error, something else) here its error
+        return done(err, false); //done(error, Boolean Value) here its error and false
     });
 }));
 

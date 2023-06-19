@@ -15,5 +15,8 @@ router.use('/posts', require('./posts'));
 // tell main router to forward all route traffic for /comments/ to comments.js router
 router.use('/comments', require('./comments'));
 
+// tell main router to forward all route traffic for /api/ to api ka index.js router
+router.use('/api', require('./api'));
+
 // export this router
 module.exports = router;

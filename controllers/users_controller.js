@@ -53,7 +53,7 @@ module.exports.update = async function (req, res) {
         }
     } else {
         req.flash('error', "UnAuthorized");
-        return res.status(401).send('Unauthorized'); //unsuccessful send error 401
+        return res.status(401).send('Unauthorized_Macha'); //unsuccessful send error 401
     }
 }
 
