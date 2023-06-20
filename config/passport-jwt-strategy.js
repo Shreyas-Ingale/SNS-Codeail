@@ -1,7 +1,7 @@
 // import passport.js
 const passport = require('passport');
 // import Strategy property of passport's JWT library
-const JWTStrategy = require('passport-jwt').Strategy;
+const jwtStrategy = require('passport-jwt').Strategy;
 // import ExtractJwt property of passport's JWT library to extract jwt from header
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 // import user
@@ -17,7 +17,7 @@ let opts = {
 }
 // jwtPayload contains the decoded info in payload, done is passport error first callback function
 // with 3 arguements of (err, user, info)
-passport.use(new JWTStrategy(opts, function(jwtPayload, done) {
+passport.use(new jwtStrategy(opts, function(jwtPayload, done) {
     User.findById(jwtPayload._id).then(function(user) {
         if (user) {
             // return user
