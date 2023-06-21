@@ -10,14 +10,14 @@ const User = require('../models/user');
 // using Passport's Google-OAuth Strategy to use google to Sign-In/Sign-Up
 // using below options to set up the token 
 passport.use(new googleStrategy({
-    clientID: "102632466672-b0isdvf84060npib2dar3nnu9upmq99m.apps.googleusercontent.com", // our id
-    clientSecret: "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",// used for encryption
+    clientID: "345971114983-fe4la7mocfgm37m6odgls3it05u09gb4.apps.googleusercontent.com", // our id
+    clientSecret: "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",// used for encryption
     callbackURL: "http://localhost:8000/users/auth/google/callback" // upon success redirect here
 }, function (accessToken, refreshToken, profile, done) {
     // find if google authenticated user exist in our DB through email-id
     User.findOne({ email: profile.emails[0].value }).then(function (user) {
         console.log("accessToken :", accessToken,"\nrefreshToken :" ,refreshToken);
-        console.log(profile);
+        // console.log(profile);
         if (user) {
             // if yes return the user and set it up as req.user
             return done(null, user);
