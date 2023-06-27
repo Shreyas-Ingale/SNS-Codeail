@@ -28,7 +28,8 @@ class PostComments{
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
-                    
+                    // enable toggle like functionality
+                    new ToggleLike($(' .toggle-like-button', newComment));
                     new notie.alert({
                         type: "success", // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
                         text: "Comment Published !",
@@ -55,6 +56,11 @@ class PostComments{
                         <br>
                         <small>
                             ${comment.user.name}
+                        </small>
+                        <small>
+                            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                0 Likes
+                            </a>
                         </small>
                     </p>
                 </li>`);

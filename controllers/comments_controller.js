@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const commentMailer = require('../mailers/comments_mailer');
 const queue = require('../config/kue');
 const commentEmailWorker = require('../workers/comment_email_worker');
+const Like = require('../models/like');
 
 // check if the post is authentic and get the comment data add its id to post.comments and post id to comment schema
 module.exports.create = async function (req, res) {
@@ -19,7 +20,7 @@ module.exports.create = async function (req, res) {
             // if we want to populate just the name and email  of the user (we'll not want to send the password in the API), this is how we do it!
             comment = await comment.populate('user', 'name email');
             // // send mail to the comment owner about the comment
-            // commentMailer.newComment(comment);
+            commentMailer.newComment(comment);
             //assign the above email job to the kue(queue) 
             let job = queue.create('emails', comment).save(function(err){
                 if(err){
@@ -57,6 +58,9 @@ module.exports.destroy = async function (req, res) {
             let postID = comment.post;
             comment.deleteOne(); // delete the comment
             let post = await Post.findByIdAndUpdate(postID, { $pull: { comments: req.params.id } });
+
+            //delete the likes asssociated with this commment
+            await Like.deleteMany({likedModel: comment._id, onModel: 'Comment'});
             // send the comment id which was deleted back to the views
             if (req.xhr){
                 return res.status(200).json({

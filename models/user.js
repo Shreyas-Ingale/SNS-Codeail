@@ -20,7 +20,25 @@ const userScehma = new mongoose.Schema({
     },
     avatar: {
         type: String
-    }
+    },
+    friendships: [
+        { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Friendship' 
+        }
+    ],
+    pending: [
+        { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    sent: [
+        { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 }, { // gives times at which account(upper 3 fields for a specific user) was created and then whenever it updates
     timestamps: true
 });

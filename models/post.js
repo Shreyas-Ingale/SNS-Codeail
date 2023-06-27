@@ -11,8 +11,14 @@ const postScehma = new mongoose.Schema({
     },//include array of ids of all comments on this post in the schema itself
     comments: [
         {
-            type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...
+            type: mongoose.Schema.Types.ObjectId, //the unique id for each comment
             ref: "Comment"
+        }
+    ],//include array of ids of all likes on this post in the schema itself
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId, //the unique id for each like
+            ref: "Like"
         }
     ]
 }, { // gives times at which account(upper fields for a specific user) was created and then whenever it updates

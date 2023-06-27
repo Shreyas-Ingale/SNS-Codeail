@@ -14,6 +14,8 @@
                     deletePost($(' .delete-post-button', newPost));
                     // call the create comment class
                     new PostComments(data.data.post._id);
+                    // call the ToggleLike class to enable toggle functionality on likes button
+                    new ToggleLike($(' .toggle-like-button', newPost));
                     new notie.alert({
                         type: "success", // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
                         text: "Post Published !",
@@ -40,6 +42,12 @@
                         <br>
                         <small>
                             ${post.user.name}
+                        </small>
+                        <br>
+                        <small>
+                            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                                0 Likes
+                            </a>
                         </small>
                     </p>
                     <div id="post-comments">

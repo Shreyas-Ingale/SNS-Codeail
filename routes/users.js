@@ -31,4 +31,17 @@ router.get('/auth/google', passport.authenticate('google', {scope: ['profile', '
 //handle actions of get on /auth/google/callback (made by google)
 router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/users/sign-in'}), usersController.createSession);
 
+// handle the routes for reset password
+router.get('/forget-password',usersController.forget);
+router.post('/verify', usersController.verify);
+router.get('/reset-pass/', usersController.resetPass);
+router.post('/confirm-reset/', usersController.confirmReset);
+
+// handle the routes for friendship handling
+router.get('/create_friend/:friendId', passport.checkAuthentication, usersController.createFriends);
+router.get('/remove_friend/:friendId', passport.checkAuthentication, usersController.deleteFriends);
+router.get('/remove_req/:friendId', passport.checkAuthentication, usersController.deleteReq);
+router.get('/accept_req/:friendId', passport.checkAuthentication, usersController.acceptReq);
+router.get('/message_friend/:friendId', passport.checkAuthentication, usersController.messageFriend);
+
 module.exports = router;

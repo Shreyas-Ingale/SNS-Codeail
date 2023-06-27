@@ -26,6 +26,19 @@
 <% } else { %>
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
+    <div class="profile-actions">
+        <% if(!(locals.user.friendships.includes(profile_user.id))){%>
+            <% if((locals.user.sent.includes(profile_user.id))){%>
+                <a href="/users/remove_req/<%=profile_user._id%>" class="edit box">Requested</a>
+            <%}else if((locals.user.pending.includes(profile_user.id))){%>
+                <a href="/users/accept_req/<%=profile_user._id%>" class="edit box">Accept</a>
+            <%}else{%>
+                <a href="/users/create_friend/<%=profile_user._id%>" class="follow edit">Follow</a>
+            <%}%>
+        <%}else{%>
+            <a href="/users/remove_friend/<%=profile_user._id%>" class="remove edit">Unfollow</a>
+        <%}%>
+    </div>
 <% } %>
 
 <script src="/js/user_profile.js"></script>
