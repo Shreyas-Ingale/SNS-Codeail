@@ -1,5 +1,6 @@
 <!-- deleted everything else except this line since that content will be filld by layout -->
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/chatbox.css">
 
 <div id="home-container">
     <section id="feed-posts">
@@ -58,6 +59,8 @@
             </div>
         </div>
     </section>
+
+    <%- include('_chatbox'); %>
     <% } %>
 </div>
 
@@ -73,3 +76,14 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
+
+<!-- import the socket.io cdn to use client side socket from home page while chatting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
+<!-- client side socket user (subscriber) -->
+<script src="/js/chat_engine.js"></script>  
+<!-- also call the ChatEngine to establish Connection-->
+<% if(locals.user){ %>
+    <script>
+        new ChatEngine('user-chat-box', '<%= locals.user.email %>')
+    </script>
+<% } %>    

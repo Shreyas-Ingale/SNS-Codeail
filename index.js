@@ -16,6 +16,13 @@ const flash = require('connect-flash'); // import connect-flash for flash messag
 const customMiddleware = require('./config/middleware'); //import custom middleware
 const bodyParser = require('body-parser'); // import readymade middleware
 
+// setup chat server to be used with socket.io
+const chatServer = require('http').createServer(app); // setup a server on server side to use sockets
+//pass server to the config file(observer) and get the server side socket
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer); 
+chatServer.listen(5000); // listen on port 5000
+console.log('Chat Server is listening on port 5000');
+
 // readymade middleware to convert browser form strings to javascript objects
 app.use(bodyParser.urlencoded({ extended: true }));
 // middleware to assign secret to sign cookies

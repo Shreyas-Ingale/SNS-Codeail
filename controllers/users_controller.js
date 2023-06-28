@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const JWT = require('jsonwebtoken');
 const Reset = require('../models/reset');
-const resetMailer = require('../mailers/reset_password_mailer');
+// const resetMailer = require('../mailers/reset_password_mailer'); UNCOMMENT THIS  !!!!!!!
+const Friendship = require('../models/friendship');
 
 //render the profile page of a user 
 module.exports.profile = function (req, res) {
@@ -89,7 +90,7 @@ module.exports.verify = async function (req, res) {
             token: token,
             user: user
         }
-        resetMailer.newReset(data)
+        // resetMailer.newReset(data); UNCOMMENT THIS  !!!!!!!
         return res.render('verified', {
             title: "verifid"
         })
@@ -131,10 +132,10 @@ module.exports.createFriends = async function (req, res) {
     if (!(req.user.sent.includes(req.params.friendId))) {
         let upda = await User.findOneAndUpdate({ _id: req.user.id }, { $push: { sent: req.params.friendId } });
     }
-    let updb = await User.findOne({ _id: req.params.friendId });
-    if (!(updb.pending.includes(req.user.id))) {
-        updb.pending.push(req.user.id);
-        updb.save();
+    let frnd = await User.findOne({ _id: req.params.friendId });
+    if (!(frnd.pending.includes(req.user.id))) {
+        frnd.pending.push(req.user.id);
+        frnd.save();
     }
     return res.redirect('back')
 
@@ -143,8 +144,8 @@ module.exports.deleteReq = async function (req, res) {
     if (req.user.sent.includes(req.params.friendId)) {
         let upda = await User.findOneAndUpdate({ _id: req.user.id }, { $pull: { sent: req.params.friendId } });
     }
-    let updb = await User.findOne({ _id: req.params.friendId });
-    if ((updb.pending.includes(req.user.id))) {
+    let frnd = await User.findOne({ _id: req.params.friendId });
+    if ((frnd.pending.includes(req.user.id))) {
         await User.findOneAndUpdate({ _id: req.params.friendId }, { $pull: { pending: req.user.id } });
     }
     return res.redirect('back')
@@ -152,12 +153,12 @@ module.exports.deleteReq = async function (req, res) {
 
 
 module.exports.acceptReq = async function (req, res) {
-    let updb = await User.findOne({ _id: req.params.friendId });
-    if (req.user.pending.includes(req.params.friendId) && updb.sent.includes(req.user.id)) {
+    let frnd = await User.findOne({ _id: req.params.friendId });
+    if (req.user.pending.includes(req.params.friendId) && frnd.sent.includes(req.user.id)) {
         await User.findOneAndUpdate({ _id: req.user.id }, { $pull: { pending: req.params.friendId } });
         await User.findOneAndUpdate({ _id: req.params.friendId }, { $pull: { sent: req.user.id } });
     }
-    if (!(updb.friendships.includes(req.user.id)) && !(req.user.friendships.includes(req.params.friendId))) {
+    if (!(frnd.friendships.includes(req.user.id)) && !(req.user.friendships.includes(req.params.friendId))) {
         await User.findOneAndUpdate({ _id: req.params.friendId }, { $push: { friendships: req.user.id } });
         await User.findOneAndUpdate({ _id: req.user.id }, { $push: { friendships: req.params.friendId } });
     }
@@ -166,8 +167,8 @@ module.exports.acceptReq = async function (req, res) {
 
 
 module.exports.deleteFriends = async function (req, res) {
-    let updb = await User.findOne({ _id: req.params.friendId });
-    if ((updb.friendships.includes(req.user.id)) && (req.user.friendships.includes(req.params.friendId))) {
+    let frnd = await User.findOne({ _id: req.params.friendId });
+    if ((frnd.friendships.includes(req.user.id)) && (req.user.friendships.includes(req.params.friendId))) {
         await User.findOneAndUpdate({ _id: req.params.friendId }, { $pull: { friendships: req.user.id } });
         await User.findOneAndUpdate({ _id: req.user.id }, { $pull: { friendships: req.params.friendId } });
     }
