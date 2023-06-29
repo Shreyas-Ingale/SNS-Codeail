@@ -1,3 +1,6 @@
+// importing chat model to load preexisting chats
+const Chat = require('../models/chat')
+
 // server side function which will be the socket user(observer)
 module.exports.chatSockets = function (socketServer) {
     const { Server } = require("socket.io");
@@ -25,6 +28,8 @@ module.exports.chatSockets = function (socketServer) {
 
         // detect send_message and broadcast to everyone in the room
         socket.on('send_message', function(data){
+            // also save the data in db
+            Chat.create(data);
             io.in(data.chatroom).emit('receive_message', data);
         });
 

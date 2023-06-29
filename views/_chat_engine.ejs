@@ -1,0 +1,29 @@
+<% if (locals.user){ %>
+    <div id="user-chat-box">
+        <h2 id="chat-heading">
+            Chat Bot
+        </h2> 
+        <hr>
+        <ul id="chat-messages-list">
+            <% for(let chat of chats) { %>
+                <% if(locals.user.email != chat.user_email) { %>
+                    <li class="other-message">
+                        <sub><%= chat.user_email %></sub>
+                        <span><%= chat.message %></span>
+                        <hr>
+                    </li>
+                <% } else { %>           
+                    <li class="self-message">
+                        <sub><%= chat.user_email %></sub>
+                        <span><%= chat.message %></span>
+                        <hr>
+                    </li>
+                <% } %>    
+            <% } %>
+        </ul>
+        <div id="chat-message-input-container">
+            <input type="text" id="chat-message-input" placeholder="Type message here">
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+<% } %>
