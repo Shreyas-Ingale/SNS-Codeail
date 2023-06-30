@@ -48,21 +48,34 @@ class PostComments{
     // method to create dom element of a comment
     newCommentDom(comment){
         return $(`<li id="comment-${ comment._id }">
-                    <p>
-                        <small>
-                            <a class="delete-comment-button" href="/comments/destroy/${comment._id}">DEL</a>
+                    <div class="comment-user">
+                        <div class="cmt-profile-img" style=" border-radius:50%; height: 50px; width: 50px; overflow:hidden">
+                            <img src="${comment.user.avatar}" alt="${comment.user.name}" style="width:100%; height:100%; border-radius:50%;">
+                        </div>
+                        <div class="cmt-profile-info">
+                            <p>
+                                ${comment.user.name}
+                            </p>
+                            <small class="cmt-time">
+                                ${comment.createdAt.toString().substring(4, 21)}
+                            </small>
+                        </div>
+                        <small class="cmt-del-btn">
+                            <a class="delete-comment-button" href="/comments/destroy/${comment.id}">DEL</a>
                         </small>
-                        ${comment.content}
-                        <br>
+                    </div>
+                    <div class="comment-actions">
                         <small>
-                            ${comment.user.name}
-                        </small>
-                        <small>
-                            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                                0 Likes
+                            <a class="toggle-like-button" data-likes="${comment.likes.length}" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                ${comment.likes.length} Like
                             </a>
                         </small>
-                    </p>
+                    </div>
+                    <div class="comment-content">
+                        <p>
+                            ${comment.content}
+                        </p>
+                    </div>        
                 </li>`);
     }
 

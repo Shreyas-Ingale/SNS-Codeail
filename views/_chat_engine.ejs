@@ -3,20 +3,17 @@
         <h2 id="chat-heading">
             Chat Bot
         </h2> 
-        <hr>
         <ul id="chat-messages-list">
             <% for(let chat of chats) { %>
                 <% if(locals.user.email != chat.user_email) { %>
                     <li class="other-message">
                         <sub><%= chat.user_email %></sub>
                         <span><%= chat.message %></span>
-                        <hr>
                     </li>
                 <% } else { %>           
                     <li class="self-message">
                         <sub><%= chat.user_email %></sub>
                         <span><%= chat.message %></span>
-                        <hr>
                     </li>
                 <% } %>    
             <% } %>

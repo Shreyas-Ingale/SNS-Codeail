@@ -10,7 +10,7 @@
                 data: newPostForm.serialize(),
                 success: function (data) {
                     let newPost = newPostDom(data.data.post);
-                    $('#posts-container>ul').prepend(newPost);
+                    $('#posts-container').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
                     // call the create comment class
                     new PostComments(data.data.post._id);
@@ -33,31 +33,44 @@
 
     // method to append the post in DOM
     let newPostDom = function (post) {
+        let path= '/images/profile.png'
         return $(`<li id="post-${post._id}">
-                    <p>
-                        <small>
-                            <a class="delete-post-button" href="/posts/destroy/${post._id}">DEL</a>
+                    <div class="post-user">
+                        <div class="profile-img" style=" border-radius:50%; height: 50px; width: 50px; overflow:hidden">
+                            <img src="${post.user.avatar ? post.user.avatar : path}" alt="${post.user.name}"
+                                style="width:100%; height:100%; border-radius:50%;">                          
+                        </div>
+                        <div class="profile-info">
+                            <p>
+                                ${post.user.name}
+                            </p>
+                            <small class="time">
+                                ${new Date(post.createdAt).toString().substring(4, 21)}
+                            </small>
+                        </div>
+                        
+                        <small class="del-btn">
+                            <a class="delete-post-button" href="/posts/destroy/${ post.id }">DEL</a>
                         </small>
-                        ${post.content}
+                        
+                    </div>
+                    <div class="post-content">
+                        ${ post.content }
                         <br>
-                        <small>
-                            ${post.user.name}
-                        </small>
-                        <br>
-                        <small>
-                            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
-                                0 Likes
-                            </a>
-                        </small>
-                    </p>
-                    <div id="post-comments">
-                            <form id="post-${ post._id }-comments-form" action="/comments/create" method="post">
-                                <input type="text" name="content" placeholder="Add a Comment..." required>
-                                <input type="hidden" name="post" value="${post._id}">
-                                <input type="submit" value="Post">
-                            </form>
-                
-                        <div id="comments-container">
+                    </div>
+                    <div class="post-actions">
+                        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                            0 Like
+                        </a>
+                        <a class="toggle-comment-form">${ post.comments.length} Comment</a>
+                    </div>
+                    <div class="post-comments">
+                        <form id="post-${post._id}-comments-form" action="/comments/create" method="post">
+                            <input id="comment-input" type="text" name="content" placeholder="Add a Comment..." required>
+                            <input type="hidden" name="post" value="${post._id}">
+                            <input id="comment-submit" type="submit" value="Post Comment">
+                        </form>
+                        <div class="comments-container">
                             <ul id="comments-${post._id}">
                             </ul>
                         </div>
@@ -90,7 +103,7 @@
 
     // loop over all the existing posts on the page (when the window loads for the first time) and call the delete post method on delete link of each, also add AJAX (using the class we've created) to the delete button of each
     let ajaxifyPosts = function () {
-        $('#posts-container>ul>li').each(function () {
+        $('#posts-container>li').each(function () {
             let self = $(this);
             let delButton = $(' .delete-post-button', self);
             deletePost(delButton);

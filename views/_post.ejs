@@ -1,38 +1,54 @@
 <li id="post-<%= post._id %>">
-    <p>
+    <div class="post-user">
+        <div class="profile-img" style=" border-radius:50%; height: 50px; width: 50px; overflow:hidden">
+            <%if(post.user.avatar){%>
+                <img src="<%= post.user.avatar %>" alt="<%= post.user.name %>"
+                    style="width:100%; height:100%; border-radius:50%;">
+            <%}else{%>
+                <img src="/images/profile.png" alt="" style="width:100%; height:100%; border-radius:50%;">
+            <%}%>
+        </div>
+        <div class="profile-info">
+            <p>
+                <%= post.user.name %>
+            </p>
+            <small class="time">
+                <%= post.createdAt.toString().substring(4, 21); %>
+            </small>
+        </div>
         <% if((locals.user) && (locals.user.id == post.user.id)) { %>
-        <small>
+        <small class="del-btn">
             <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">DEL</a>
         </small>
         <% } %>
+    </div>
+    <div class="post-content">
         <%= post.content %>
         <br>
-        <small>
-            <%= post.user.name %>
-        </small>
-        <br>
-        <small>
-            <% if(locals.user) { %>
-                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                    <%= post.likes.length %> Likes
-                </a>
-            <% } else { %>
-                <%= post.likes.length %> Likes
-            <% } %>
-        </small>
-    </p>
-    <div id="post-comments">
+    </div>
+    <div class="post-actions">
+        <% if(locals.user) { %>
+            <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                <%= post.likes.length %> Like
+            </a>
+            <a class="toggle-comment-form"><%= post.comments.length %> Comment</a>
+        <% } else { %>
+            <%= post.likes.length %> Like
+            <%= post.comments.length %> Comment
+        <% } %>
+    </div>
+    <div class="post-comments">
         <% if(locals.user) {%>
             <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="post">
-                <input type="text" name="content" placeholder="Add a Comment..." required>
+                <input class="comment-input" type="text" name="content" placeholder="Add a Comment..." required>
                 <input type="hidden" name="post" value="<%= post._id %>">
-                <input type="submit" value="Post">
+                <input class="comment-submit" type="submit" value="Post Comment">
             </form>
         <% } %>
 
-        <div id="comments-container">
+        <div class="comments-container">
             <ul id="comments-<%= post._id %>">
-                <% for(comment of post.comments){ %>
+                <% for(comment of post.comments.reverse()){ %>
                     <%- include('_comment'); %>
                 <% } %>
             </ul>

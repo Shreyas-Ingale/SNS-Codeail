@@ -7,7 +7,8 @@ const commentScehma = new mongoose.Schema({
     },//User to which the comment belongs to
     user: {
         type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...
-        ref: "User"
+        ref: 'User',
+        autopopulate: true
     },//Post to which the comment belongs to
     post: {
         type: mongoose.Schema.Types.ObjectId, //the unique id for each user console logged one ...

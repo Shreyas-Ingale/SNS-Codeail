@@ -29,6 +29,12 @@ class ChatEngine{
             });
         });
 
+        //toggle the height of the chatbox
+        $('#chat-heading').click(function(){
+            $('#chat-messages-list').toggleClass('display-block');
+            $('#chat-message-input-container').toggleClass('display-flex');
+        });
+
         // send a message on clicking the send message button
         $('#send-message').click(function(){
             let msg = $('#chat-message-input').val();

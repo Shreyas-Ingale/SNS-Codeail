@@ -15,16 +15,18 @@ module.exports.home = async function (req, res) {
             .populate({
                 path: 'comments',
                 populate: {
-                    path: 'user'
+                    path: 'likes'
                 },
                 populate: {
-                    path: 'likes'
+                    path: 'user'
                 }
-            }).populate('comments') //comments array to access likes array of each comment
-            .populate('likes'); // likes array present in each comment
+            }).populate('likes'); // likes array present in each comment
 
         let users = await User.find({});
         let chats = await Chat.find({});
+        posts.forEach((post) =>{
+            console.log("Post Data", post.comments)
+        });
         return res.render('home', {
             title: "Home",
             posts: posts,
