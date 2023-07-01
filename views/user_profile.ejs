@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="<%= assetPath('css/user.css') %>">
 <% if(profile_user.avatar) {%>
     <img src="<%= profile_user.avatar %>" alt="Profile Picture" width="100">
 <% } %>
@@ -18,7 +18,7 @@
         </div>
         <div>
             <span id="preview">
-                <img src="/uploads/general/placeholder-image.png" alt="Placeholder Image" width="100">
+                <img src="<%= assetPath('images/placeholder-image.png') %>" alt="Placeholder Image" width="100">
             </span>
         </div>
     </form>
@@ -41,5 +41,5 @@
     </div>
 <% } %>
 
-<script src="/js/user_profile.js"></script>
+<script src="<%= assetPath('js/user_profile.js') %>"></script>
     

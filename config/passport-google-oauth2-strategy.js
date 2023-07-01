@@ -4,15 +4,17 @@ const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // import crypto to generate random password for google authenticated accounts
 const crypto = require('crypto');
+//import environment
+const env = require('./environment');
 // import user
 const User = require('../models/user');
 
 // using Passport's Google-OAuth Strategy to use google to Sign-In/Sign-Up
 // using below options to set up the token 
 passport.use(new googleStrategy({
-    clientID: "345971114983-fe4la7mocfgm37m6odgls3it05u09gb4.apps.googleusercontent.com", // our id
-    clientSecret: "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",// used for encryption
-    callbackURL: "http://localhost:8000/users/auth/google/callback" // upon success redirect here
+    clientID: env.google_Client_ID, // our id
+    clientSecret: env.google_Client_Secret,// used for encryption
+    callbackURL: env.google_Callback_URL // upon success redirect here
 }, function (accessToken, refreshToken, profile, done) {
     // find if google authenticated user exist in our DB through email-id
     User.findOne({ email: profile.emails[0].value }).then(function (user) {

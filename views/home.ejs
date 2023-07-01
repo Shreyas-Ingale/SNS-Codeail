@@ -1,6 +1,6 @@
 <!-- deleted everything else except this line since that content will be filld by layout -->
-<link rel="stylesheet" href="/css/home.css">
-<link rel="stylesheet" href="/css/chatbox.css">
+<link rel="stylesheet" type="text/css" href="<%= assetPath('css/home.css') %>">
+<link rel="stylesheet" type="text/css" href="<%= assetPath('css/chatbox.css') %>">
 
 <div id="home-container">
     <section id="feed-posts">
@@ -38,7 +38,7 @@
                                         <img src="<%= u.avatar %>" alt="<%= u.name %>"
                                             style="width:100%; height:100%; border-radius:50%;">
                                     <%}else{%>
-                                        <img src="/images/profile.png" alt="" style="width:100%; height:100%; border-radius:50%;">
+                                        <img src="<%= assetPath('images/profile.png') %>" alt="" style="width:100%; height:100%; border-radius:50%;">
                                     <%}%>
                                 </div>
                                 <div>
@@ -62,7 +62,7 @@
                                         <img src="<%= u.avatar %>" alt="<%= u.name %>"
                                             style="width:100%; height:100%; border-radius:50%;">
                                     <%}else{%>
-                                        <img src="/images/profile.png" alt="" style="width:100%; height:100%; border-radius:50%;">
+                                        <img src="<%= assetPath('images/profile.png') %>" alt="" style="width:100%; height:100%; border-radius:50%;">
                                     <%}%>
                                 </div>
                                 <div>
@@ -81,11 +81,11 @@
 </div>
 
 <!-- importing this script for creating the comments -->
-<script src="/js/home_posts_comments.js" ></script>
-<script src="/js/home_posts.js"></script>
+<script src="<%= assetPath('js/home_posts_comments.js') %>" ></script>
+<script src="<%= assetPath('js/home_posts.js') %>"></script>
 
 <!-- import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
-<script src="/js/toggle_likes.js"></script>
+<script src="<%= assetPath('js/toggle_likes.js') %>"></script>
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
@@ -96,7 +96,7 @@
 <!-- import the socket.io cdn to use client side socket from home page while chatting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
 <!-- client side socket user (subscriber) -->
-<script src="/js/chat_engine.js"></script>  
+<script src="<%= assetPath('js/chat_engine.js') %>"></script>  
 <!-- also call the ChatEngine to establish Connection-->
 <% if(locals.user){ %>
     <script>

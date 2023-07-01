@@ -1,0 +1,1 @@
+function imagePreview(e){const t=URL.createObjectURL(e.target.files[0]),n=document.getElementById("preview"),i=document.createElement("img");n.innerText="",i.src=t,i.width="100",n.appendChild(i)}

@@ -24,9 +24,6 @@ module.exports.home = async function (req, res) {
 
         let users = await User.find({});
         let chats = await Chat.find({});
-        posts.forEach((post) =>{
-            console.log("Post Data", post.comments)
-        });
         return res.render('home', {
             title: "Home",
             posts: posts,

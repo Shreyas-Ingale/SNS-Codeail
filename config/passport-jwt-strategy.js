@@ -6,14 +6,14 @@ const jwtStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 // import user
 const User = require('../models/user');
-
+const env = require('./environment');
 // some options to set up jwt 
 let opts = {
     // reads the JWT token from the http Authorization header with the scheme 'bearer'
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     // secretOrKey is a string or buffer containing the secret/PEM-encoded public key, for verifying the token's signature.
     // used for encryption and decryption of tokens
-    secretOrKey : 'codeial'
+    secretOrKey : env.jwt_Secret
 }
 // jwtPayload contains the decoded info in payload, done is passport error first callback function
 // with 3 arguements of (err, user, info)

@@ -1,0 +1,37 @@
+#things {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: rgb(86, 86, 86);
+  color: whitesmoke;
+  width: 100%;
+  min-height: 50px;
+}
+#things #copyrights {
+  border-right: 1px solid whitesmoke;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+#things #copyrights p {
+  font-size: 1rem;
+}
+#things #nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#things #nav a {
+  color: whitesmoke;
+  text-decoration: none;
+  outline: none;
+}
+#things #nav a:first-child {
+  padding-bottom: 1px;
+}
+#things #nav a:last-child {
+  padding-top: 1px;
+}
+#things #nav a:hover {
+  color: rgba(255, 255, 255, 0.751);
+}

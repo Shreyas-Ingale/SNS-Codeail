@@ -1,6 +1,9 @@
 const express = require('express'); // import express
+const env = require('./config/environment'); // importing environment
+const logger = require('morgan'); // import morgan.js to handle logs
 const cookieParser = require('cookie-parser'); // import cookie parser for accessingg cookies
 const app = express();  // start express
+require('./config/view-helper')(app); // access the helperFunc for views for static files
 const port = 8000; // default port for express server
 const expressLayouts = require('express-ejs-layouts'); // import express ejs layout
 const db = require('./config/mongoose');
@@ -28,7 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // middleware to assign secret to sign cookies
 app.use(cookieParser());
 // using static for access styling and js files 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
+
+//using logger to store logs generated during site usage
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 //make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -47,7 +53,7 @@ app.set('views', './views');
 // start expressjs session to create session cookie and store logged in users encrypted info into it
 app.use(session({
     name: 'codeial', //name of cookie
-    secret: 'something', // the secret encrypt key but using random text for now
+    secret: env.session_cookie_key, // the secret encrypt key but using random text for now
     saveUninitialized: false, // false means dont save data incookie if user is not logged in
     resave: false, // false means if user info(id) is present in cookie dont change it by some other info
     cookie: {
