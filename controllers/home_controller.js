@@ -4,7 +4,7 @@ const Chat = require('../models/chat');
 
 //export a home controller for respose to a request in Router & to render the homepage
 module.exports.home = async function (req, res) {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     // render the posts - populate the user of each post and a comments user to display names
     // and send all the users to make them visible as friends also populate likes of each post
     // and likes of each comment of the post

@@ -1,7 +1,7 @@
 const nodeMailer = require('../config/nodemailer');
 
 exports.newReset = (data) =>{
-    console.log('inside new email mailer');
+    // console.log('inside new email mailer');
     let htmlString = nodeMailer.renderTemplate({token: data.token, user: data.user}, '/reset/reset_password.ejs');
     
   

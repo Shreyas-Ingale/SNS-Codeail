@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const JWT = require('jsonwebtoken');
 const Reset = require('../models/reset');
-// const resetMailer = require('../mailers/reset_password_mailer'); UNCOMMENT THIS  !!!!!!!
+const resetMailer = require('../mailers/reset_password_mailer'); 
 const Friendship = require('../models/friendship');
 
 //render the profile page of a user 
@@ -77,7 +77,7 @@ module.exports.forget = async function (req, res) {
 
 module.exports.verify = async function (req, res) {
     let user = await User.findOne({ email: req.body.email });
-    console.log(user)
+    // console.log(user)
     if (user) {
         let token = JWT.sign(user.toJSON(), 'codeial', { expiresIn: '600s' });
         let reset = await Reset.create({
@@ -90,7 +90,7 @@ module.exports.verify = async function (req, res) {
             token: token,
             user: user
         }
-        // resetMailer.newReset(data); UNCOMMENT THIS  !!!!!!!
+        resetMailer.newReset(data); 
         return res.render('verified', {
             title: "verifid"
         })
@@ -179,7 +179,7 @@ module.exports.deleteFriends = async function (req, res) {
 module.exports.messageFriend = async function (req, res) {
     let messagefriend = await User.findById(req.params.friendId);
     if (req.xhr) {
-        console.log(messagefriend)
+        // console.log(messagefriend)
         return res.status(200).json({
             user: messagefriend.email,
             message:"User found",
