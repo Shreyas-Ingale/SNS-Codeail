@@ -4,7 +4,7 @@ class ChatEngine{
         this.chatBoxId = $(`${chatBoxId}`); // chatbox element
         this.userEmail = userEmail; //current user
         // emit a connect event to observer(connect req)
-        this.socket = io.connect('http://localhost:5000'); 
+        this.socket = io.connect('http://13.211.211.38:5000'); 
         // subscriber socket server running on 5000
         if(this.userEmail){
             this.connectionHandler();
