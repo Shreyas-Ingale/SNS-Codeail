@@ -8,7 +8,7 @@ module.exports.chatSockets = function (socketServer) {
         cors: { // cross origin resouce service basically it is a kind of security measure
             // so website from port 8000 is able to access sockets from port 5000 only if on port 5000 
             // cors is configured to allow port 8000 wali website to access the sockets
-            origin: "http://13.211.211.38:8000",
+            origin: "http://localhost:8000", //13.211.211.38
             credentials: true
         }
     });
