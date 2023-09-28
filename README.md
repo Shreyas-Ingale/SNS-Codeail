@@ -1,6 +1,7 @@
 # SNS-Codeail
 
 A Node.js application with Google OAuth, JWT authentication, WebSockets, and deployment on Amazon EC2.
+public IPv4 : 13.211.211.38
 
 ## Table of Contents
 
